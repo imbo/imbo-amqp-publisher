@@ -29,7 +29,16 @@ class AmqpPublisher implements ListenerInterface {
      *
      * @var array
      */
-    protected $events = ['*'];
+    protected $events = [
+        'image.delete',
+        'images.post',
+        'metadata.put',
+        'metadata.post',
+        'metadata.delete',
+        'shorturl.delete',
+        'shorturls.post',
+        'shorturls.delete',
+    ];
 
     /**
      * Connection configuration

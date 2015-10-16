@@ -34,11 +34,26 @@ return [
                     'routingKey' => '',
                 ],
 
-                // Which events should be published to the queue? A wildcard character (`*`)
-                // present in this array will publish all "resource events". To change this,
-                // simply set the array to contain the events you want to publish, for instance
-                // ['metadata.put', 'metadata.post', 'metadata.delete', 'images.post']
-                'events' => ['*'],
+                /**
+                 * Which events should be published to the queue? By default, it will publish all
+                 * user-level write events. This prevents us from spamming the queue with all
+                 * image requests, for instance.
+                 *
+                 * A wildcard character (`*`) in this array will publish all "resource events",
+                 * but note that this could potentially trigger *a lot* of messages, as well as
+                 * potentially exposing sensitive information to the queue (key pairs added through
+                 * the API, for instance).
+                 */
+                'events' => [
+                    'image.delete',
+                    'images.post',
+                    'metadata.put',
+                    'metadata.post',
+                    'metadata.delete',
+                    'shorturl.delete',
+                    'shorturls.post',
+                    'shorturls.delete',
+                ],
             ])
         ],
     ],
