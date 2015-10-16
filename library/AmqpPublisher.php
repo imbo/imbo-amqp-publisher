@@ -212,6 +212,7 @@ class AmqpPublisher implements ListenerInterface {
         // Construct an array of all the image information we have
         $message['image'] = [
             'identifier' => $imageIdentifier,
+            'user'       => $image->getUser() ?: $request->getUser(),
             'size'       => $image->getFilesize(),
             'extension'  => $image->getExtension(),
             'mime'       => $image->getMimeType(),
