@@ -1,0 +1,43 @@
+{
+    "name": "imbo/imbo-amqp-publisher",
+    "description": "AMQP event publisher plugin for Imbo",
+    "keywords": [ "metadata", "search", "imbo" ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Espen Hovlandsdal",
+            "email": "espen@hovlandsdal.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/imbo/imbo-amqp-publisher",
+        "irc": "irc://irc.freenode.net/imbo"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:imbo/imbo.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "videlalvaro/php-amqplib": "^2.6"
+    },
+    "require-dev": {
+        "ext-imagick": ">=3.0.1",
+        "phpunit/phpunit": "^4.8",
+        "imbo/imbo": "dev-beta2.0",
+        "behat/behat": "^3.0",
+        "squizlabs/php_codesniffer": "^2.3",
+        "imbo/imbo-phpcs-standard": "dev-master",
+        "imbo/imboclient": "^1.2",
+        "beberlei/assert": "^2.4",
+        "guzzle/plugin-history": "^3.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imbo\\AmqpPublisher\\": "library/"
+        }
+    }
+}
