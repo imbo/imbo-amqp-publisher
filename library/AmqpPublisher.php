@@ -6,6 +6,7 @@ use Imbo\EventListener\ListenerInterface,
     Imbo\EventManager\EventInterface,
     Imbo\Exception\InvalidArgumentException,
     Imbo\Model\Image as ImageModel,
+    Imbo\Model\Error as ErrorModel,
     Imbo\Http\Request\Request,
     Imbo\Http\Response\Response,
     PhpAmqpLib\Connection\AMQPStreamConnection,
@@ -178,6 +179,11 @@ class AmqpPublisher implements ListenerInterface {
      * @return array
      */
     public function constructMessageBody($eventName, Request $request, Response $response, EventInterface $event) {
+        if ($response->getModel() instanceOf ErrorModel) {
+            trigger_error($response->getModel()->getErrorMessage());
+            return;
+        }
+
         // Construct the basics
         $message = [
             'eventName' => $eventName,
