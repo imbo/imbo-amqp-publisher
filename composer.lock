@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "105f5040dd62496b6e85316cc43560c7",
-    "content-hash": "a400966c273a9c519e5a542a80115a28",
+    "hash": "174643bf68f614fbf0477269605caa1f",
+    "content-hash": "03ebd2a82e4457f9b926d43c5d55b449",
     "packages": [
         {
-            "name": "videlalvaro/php-amqplib",
+            "name": "php-amqplib/php-amqplib",
             "version": "v2.6.2",
             "source": {
                 "type": "git",
@@ -74,7 +74,6 @@
                 "queue",
                 "rabbitmq"
             ],
-            "abandoned": "php-amqplib/php-amqplib",
             "time": "2016-03-02 16:36:48"
         }
     ],

@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "videlalvaro/php-amqplib": "^2.6"
+        "php-amqplib/php-amqplib": "^2.6"
     },
     "require-dev": {
         "ext-imagick": ">=3.0.1",
@@ -31,7 +31,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Imbo\\AmqpPublisher\\": "library/"
+            "Imbo\\AmqpPublisher\\": "library/",
+            "ImboTest\\AmqpPublisher\\": "tests/"
         }
     }
 }
