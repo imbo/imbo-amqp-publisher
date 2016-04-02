@@ -1,8 +1,7 @@
 [![Current build Status](https://secure.travis-ci.org/imbo/imbo-amqp-publisher.png)](http://travis-ci.org/imbo/imbo-amqp-publisher)
 
-# imbo-amqp-publisher
-
-AMQP plugin for Imbo, publishes events to a queue.
+# Imbo AMQP publisher plugin
+AMQP publisher plugin for Imbo that can be used to publish events to a queue.
 
 ## Installation
 ### Setting up the dependencies
