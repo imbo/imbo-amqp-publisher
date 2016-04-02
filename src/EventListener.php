@@ -1,6 +1,5 @@
 <?php
-
-namespace Imbo\AmqpPublisher;
+namespace Imbo\Plugin\AmqpPublisher;
 
 use Imbo\EventListener\ListenerInterface,
     Imbo\EventManager\EventInterface,
@@ -9,6 +8,7 @@ use Imbo\EventListener\ListenerInterface,
     Imbo\Model\Error as ErrorModel,
     Imbo\Http\Request\Request,
     Imbo\Http\Response\Response,
+
     PhpAmqpLib\Connection\AMQPStreamConnection,
     PhpAmqpLib\Message\AMQPMessage,
     DateTime;
@@ -18,7 +18,7 @@ use Imbo\EventListener\ListenerInterface,
  *
  * @author Espen Hovlandsdal <espen@hovlandsdal.com>
  */
-class AmqpPublisher implements ListenerInterface {
+class EventListener implements ListenerInterface {
     /**
      * Delivery modes (duplicated here because AmqpLib doesn't have them in a released version yet)
      */
@@ -149,8 +149,6 @@ class AmqpPublisher implements ListenerInterface {
         // Collect data and construct the message body
         $body = $this->constructMessageBody(
             $eventName,
-            $event->getRequest(),
-            $event->getResponse(),
             $event
         );
 
@@ -173,16 +171,18 @@ class AmqpPublisher implements ListenerInterface {
      * Construct a message body with the data we need
      *
      * @param string $eventName Event that was triggered
-     * @param Request $request Request that triggered this event
-     * @param Response $response Response for this request
-     * @param Imbo\EventManager\EventInterface $eventName Current event
+     * @param EventInterface $eventName Current event
      * @return array
      */
-    public function constructMessageBody($eventName, Request $request, Response $response, EventInterface $event) {
+    public function constructMessageBody($eventName, EventInterface $event) {
+        $response = $event->getResponse();
+
         if ($response->getModel() instanceOf ErrorModel) {
             trigger_error($response->getModel()->getErrorMessage());
             return;
         }
+
+        $request = $event->getRequest();
 
         // Construct the basics
         $message = [
@@ -231,8 +231,8 @@ class AmqpPublisher implements ListenerInterface {
             'size'       => $image->getFilesize(),
             'extension'  => $image->getExtension(),
             'mime'       => $image->getMimeType(),
-            'added'      => $image->getAddedDate()->format(DateTime::ATOM),
-            'updated'    => $image->getUpdatedDate()->format(DateTime::ATOM),
+            'added'      => ($date = $image->getAddedDate()) ? $date->format(DateTime::ATOM) : null,
+            'updated'    => ($date = $image->getUpdatedDate()) ? $date->format(DateTime::ATOM) : null,
             'width'      => $image->getWidth(),
             'height'     => $image->getHeight(),
             'metadata'   => $image->getMetadata(),
@@ -364,22 +364,24 @@ class AmqpPublisher implements ListenerInterface {
     /**
      * Get image data for a given image identifier
      *
-     * @param Imbo\EventListener\ListenerInterface $event
-     * @param array $imageIdentifier Image identifier of image to get data about
+     * @param Imbo\EventManager\EventInterface $event
+     * @param string $imageIdentifier Image identifier of image to get data about
      * @return Imbo\Model\Image
      */
-    protected function getImageData($event, $imageIdentifier) {
+    protected function getImageData(EventInterface $event, $imageIdentifier) {
         $image = new ImageModel();
+        $database = $event->getDatabase();
+        $user = $event->getRequest()->getUser();
 
-        $event->getDatabase()->load(
-            $event->getRequest()->getUser(),
+        $database->load(
+            $user,
             $imageIdentifier,
             $image
         );
 
         // Get image metadata
-        $metadata = $event->getDatabase()->getMetadata(
-            $event->getRequest()->getUser(),
+        $metadata = $database->getMetadata(
+            $user,
             $imageIdentifier
         );
 

@@ -31,8 +31,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Imbo\\AmqpPublisher\\": "library/",
-            "ImboTest\\AmqpPublisher\\": "tests/"
+            "Imbo\\Plugin\\AmqpPublisher\\": "src/",
+            "ImboUnitTest\\Plugin\\AmqpPublisher\\": "tests/unit",
+            "ImboIntegrationTest\\Plugin\\AmqpPublisher\\": "tests/integration"
         }
     }
 }
