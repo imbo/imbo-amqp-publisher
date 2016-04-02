@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "646bd30e39cc3991c7c95a1e01749269",
-    "content-hash": "6576e2850678f109de9d3dfc1cb6c33a",
+    "hash": "0dfac7401c4210a0079627b11f36dfe6",
+    "content-hash": "e1e82ca61776310f216116e9415762cf",
     "packages": [
         {
             "name": "php-amqplib/php-amqplib",
