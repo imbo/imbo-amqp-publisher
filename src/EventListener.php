@@ -226,7 +226,7 @@ class EventListener implements ListenerInterface {
 
         // Construct an array of all the image information we have
         $message['image'] = [
-            'identifier' => $imageIdentifier,
+            'imageIdentifier' => $imageIdentifier,
             'user'       => $image->getUser() ?: $request->getUser(),
             'size'       => $image->getFilesize(),
             'extension'  => $image->getExtension(),
